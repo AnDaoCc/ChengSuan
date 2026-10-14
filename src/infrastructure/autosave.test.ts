@@ -1,0 +1,5 @@
+import {it,expect} from 'vitest';
+import {AutosaveQueue} from './autosave';
+import {newPlan,type PlanRepository} from '../core/model';
+it('coalesces edits and waits for committed writes in order',async()=>{const calls:string[]=[];const repo={savePlan:async(p)=>{await new Promise(r=>setTimeout(r,5));calls.push(p.name);}} as PlanRepository;const queue=new AutosaveQueue(repo,()=>{},100000);const p=newPlan();queue.schedule({...p,name:'a'});queue.schedule({...p,name:'b'});const first=queue.flush();queue.schedule({...p,name:'c'});await queue.flush();await first;expect(calls).toEqual(['b','c']);});
+it('retains failed input for retry and never reports success early',async()=>{let fail=true;const statuses:string[]=[];const repo={savePlan:async()=>{if(fail)throw Error('disk full')}} as unknown as PlanRepository;const q=new AutosaveQueue(repo,s=>statuses.push(s),100000);q.schedule(newPlan());await expect(q.flush()).rejects.toThrow('disk full');expect(statuses.at(-1)).toBe('error');fail=false;await q.flush();expect(statuses.at(-1)).toBe('saved');});

@@ -1,0 +1,48 @@
+{
+  "name": "chengsuan",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "tauri": "tauri",
+    "desktop": "tauri dev",
+    "release": "tauri build --no-bundle --target x86_64-pc-windows-msvc"
+  },
+  "dependencies": {
+    "@fontsource-variable/noto-sans-sc": "latest",
+    "@radix-ui/react-dialog": "latest",
+    "@tauri-apps/api": "2.12.3",
+    "class-variance-authority": "latest",
+    "clsx": "latest",
+    "decimal.js": "latest",
+    "exceljs": "4.4.0",
+    "lightweight-charts": "5.2.1",
+    "lucide-react": "latest",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-router-dom": "latest",
+    "tailwind-merge": "latest",
+    "zod": "latest"
+  },
+  "overrides": {
+    "uuid": "11.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "latest",
+    "@tauri-apps/cli": "2.12.2",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "prettier": "3.9.10",
+    "selenium-webdriver": "4.51.0",
+    "tailwindcss": "latest",
+    "typescript": "^5.9.3",
+    "vite": "8.3.4",
+    "vitest": "latest"
+  }
+}
